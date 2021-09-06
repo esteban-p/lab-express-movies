@@ -8,9 +8,26 @@ router.get('/', (req, res, next) => {
 			//console.log(celebritiesFromDB);
 			res.render('celebrities/index', { celebritiesList: celebritiesFromDB });
 		})
-		.catch(err => {
-			next(err);
-		})
+		.catch(err => next(err));
+})
+
+router.get('/new', (req, res, next) => {
+    res.render('celebrities/new');
+})
+
+router.post('/', (req, res, next) => {
+    //console.log(req.body);
+    const {name, occupation, catchPhrase} = req.body;
+    Celebrity.create({
+        name: name,
+        occupation: occupation,
+        catchPhrase: catchPhrase
+    })
+        .then(createdCelebrity => {
+            //console.log(createdCelebrity);
+            res.redirect('celebrities');
+        })
+        .catch(err => next(err));
 })
 
 router.get('/:id', (req, res, next) => {
@@ -20,9 +37,9 @@ router.get('/:id', (req, res, next) => {
             //console.log(celebritiesFromDB)
             res.render('celebrities/show', { celebrityCard: celebrityFromDB })
         })
-        .catch(err => {
-			next(err);
-		})
+        .catch(err => next(err));
 })
+
+
 
 module.exports = router;
