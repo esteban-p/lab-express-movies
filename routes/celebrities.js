@@ -48,5 +48,26 @@ router.post('/:id/delete', (req, res, next) => {
         .catch(err => next(err));
 })
 
+router.get('/:id/edit', (req, res, next) => {
+    Celebrity.findById(req.params.id)
+        .then(celebrityFromDB => {
+            res.render('celebrities/edit', { celebrityCard: celebrityFromDB })
+        })
+        .catch(err => next(err));
+})
+
+router.post('/:id', (req, res, next) => {
+    const celebrityId = req.params.id;
+    Celebrity.findByIdAndUpdate(celebrityId, {
+        name : req.body.name,
+        occupation: req.body.occupation,
+        catchPhrase: req.body.catchPhrase
+    }, {new: true})
+        .then(updatedCelebrity => {
+            //console.log(updatedCelebrity);
+            res.redirect('/celebrities');
+        })
+        .catch(err => next(err));
+})
 
 module.exports = router;
