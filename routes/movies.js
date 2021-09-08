@@ -41,12 +41,11 @@ router.post('/movies', (req, res, next) => {
 })
 
 router.get('/movies/:id', (req, res, next) => {
-    //console.log(req.params);
-    // Movie.findById(req.params.id).populate('cast')
-	Movie.findById(req.params.id)
+    //console.log(req.params.id);
+	Movie.findById(req.params.id).populate('cast')
         .then(movieFromDB => {
             console.log(movieFromDB);
-            // res.render('movies/show', { movieCard: movieFromDB });
+            res.render('movies/show', { movieCard: movieFromDB });
         })
         .catch(err => next(err));
 })

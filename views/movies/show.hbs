@@ -2,13 +2,17 @@
 <br><br>
 <h3>Title: {{movieCard.title}}</h3>
 <h4>Genre: {{movieCard.genre}}</h4>
-<h5>Plot: {{movieCard.plot}}</h5>
-<h5>Cast:</h5>
-<h5>{{celebrityCard.name}}</h5>
+<h4>Plot: {{movieCard.plot}}</h4>
+<h4>Cast:</h4>
+{{#each movieCard.cast}}
+    <li>{{name}}</li>
+    <br>
+{{/each}}
 
 
 
-<br>
+
+<br><br><br>
 <a href="/movies/{{movieCard._id}}/edit">Edit this movie 🖊</a>
 <br><br><br>
 <a href="/movies">Back to the movies catalog 🍿</a>
